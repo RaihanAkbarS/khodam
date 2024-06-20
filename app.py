@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import csv
 import random
+import html
 
 app = Flask(__name__)
 
@@ -30,7 +31,7 @@ def index():
 def ambil_nama_acak_api():
     nama_file_csv = 'nama_indonesia_bersih.csv'  # Sesuaikan nama file CSV
     nama_acak = ambil_nama_acak(nama_file_csv)
-    nama_input = request.form.get('inputNama')  # Ambil nama dari input form dengan name 'inputNama'
+    nama_input = html.escape(request.form.get('inputNama'))  # Menggunakan html.escape untuk membersihkan input
     return jsonify({'nama_input': nama_input, 'nama_acak': nama_acak})
 
 if __name__ == '__main__':
