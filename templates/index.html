@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Khodam Kamu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!-- Menghubungkan file CSS -->
+
+    <style>
+        * {
+            font-family: serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+
+    <div class="transparent-box">
+        <h1>Cek Khodam Kamu</h1>
+        <div id="formContainer">
+            <form id="formCari">
+                <label for="inputNama">Masukkan Nama:</label>
+                <p></p>
+                <input type="text" id="inputNama" name="nama">
+                <p></p>
+                <button type="submit" class="button-90">Next</button>
+            </form>
+        </div>
+        <div id="hasilKata"></div>
+    </div>
+    <audio id="audioPlayer" src="{{ url_for('static', filename='hasil.mp3') }}"></audio>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#formCari').submit(function(event) {
+                event.preventDefault();
+                var inputNama = $('#inputNama').val();
+                $.ajax({
+                    url: '/ambil_nama_acak',
+                    type: 'POST',
+                    data: { nama: inputNama },
+                    success: function(response) {
+                        var text = '<div padding: 20px;">'; // Menambahkan gaya langsung di sini
+                        text += '<h1>Hi ' + inputNama + ',</h1>';
+    
+                        // Memasukkan paragraf pertama
+                        text += '<p style="font-size: 35px;" >Khodam kamu adalah... ' + '</p>';
+    
+                        // Memasukkan paragraf kedua
+                        // text += '<p style="font-size: 35px;" >'+ response.nama_acak + '</p>';
+                        text += '<p style="font-size: 35px; color: Black; font-weight: bold; text-transform: uppercase; text-decoration: underline;">' + response.nama_acak + '</p>';
+    
+                        text += '<button type="button" onclick="location.reload()" class="button-90">Coba Lagi</button>';
+                        text += '</div>';
+                        $('#formContainer').html(text);
+                        var audio = document.getElementById('audioPlayer');
+                        audio.play();
+
+                    }
+                });
+            });
+        });
+    </script>
+    

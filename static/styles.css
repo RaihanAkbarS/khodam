@@ -1,0 +1,103 @@
+/* CSS untuk halaman */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("14fkhodam-3194671675.jpg"); /* Sesuaikan dengan path gambar latar belakang */
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Latar belakang berada di belakang konten */
+}
+
+/* CSS untuk transparent-box */
+.transparent-box {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 100px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 1000px;
+    width: 100%; /* Lebar relatif untuk responsif */
+    text-align: center;
+}
+
+/* CSS untuk elemen dalam transparent-box */
+.transparent-box h1, .transparent-box label {
+    margin-bottom: 10px;
+    font-size: 40px; /* Ukuran font h1 dan label */
+}
+
+.transparent-box input[type="text"] {
+    padding: 8px 12px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.transparent-box .button-90 {
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #4C43CD;
+    box-shadow: 2px 19px 31px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-size: 26px;
+    border: 0;
+    cursor: pointer;
+}
+
+.transparent-box .button-90:hover {
+    background-color: #45a049;
+}
+
+.transparent-box #hasilKata {
+    margin-top: 20px;
+}
+
+/* CSS untuk hasil pencarian */
+.hasil-container {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.hasil-container h1 {
+    margin-bottom: 10px;
+    font-size: 24px; /* Ukuran font h1 dalam hasil-container */
+}
+
+.hasil-container p {
+    margin-bottom: px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hasil-container button {
+    padding: 8px 12px;
+    background-color: #4C43CD;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.hasil-container button:hover {
+    background-color: #574ecc;
+}
