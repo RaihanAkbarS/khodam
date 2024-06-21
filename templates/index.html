@@ -21,7 +21,8 @@
             <form id="formCari">
                 <label for="inputNama">Masukkan Nama:</label>
                 <p></p>
-                <input type="text" id="inputNama" name="nama" maxlength="50">
+                <input type="text" id="inputNama" name="nama">
+                <p id="error-message" style="color: red;"></p>
                 <p></p>
                 <button type="submit" class="button-90">Next</button>
             </form>
@@ -34,19 +35,31 @@
         $(document).ready(function() {
             $('#formCari').submit(function(event) {
                 event.preventDefault();
-                var inputNama = $('#inputNama').val();
+                var inputNama = $('#inputNama').val().trim();
+                
+                // Validasi input di sisi klien
+                if (!inputNama) {
+                    $('#error-message').text('Nama harus diisi');
+                    return;
+                }
+
                 $.ajax({
                     url: '/ambil_nama_acak',
                     type: 'POST',
                     data: { inputNama: inputNama },
                     success: function(response) {
-                        var text = '<div style="padding: 20px;">';
-                        text += '<h1>Hi ' + response.nama_input + ',</h1>';  // Tidak perlu lagi menggunakan $.text
-                        text += '<p style="font-size: 35px;">Khodam kamu adalah... </p>';
-                        text += '<p style="font-size: 35px; color: Black; font-weight: bold; text-transform: uppercase; text-decoration: underline;">' + response.nama_acak + '</p>';
-                        text += '<button type="button" onclick="location.reload()" class="button-90">Coba Lagi</button>';
-                        text += '</div>';
-                        $('#formContainer').html(text);
+                        if (response.reload) {
+                            location.reload();  // Reload halaman jika flag reload diterima dari server
+                            return;
+                        }
+
+                        var textContainer = $('<div style="padding: 20px;"></div>');
+                        textContainer.append($('<h1></h1>').text('Hi ' + response.nama_input + ','));
+                        textContainer.append($('<p style="font-size: 35px;"></p>').text('Khodam kamu adalah... '));
+                        textContainer.append($('<p style="font-size: 35px; color: Black; font-weight: bold; text-transform: uppercase; text-decoration: underline;"></p>').text(response.nama_acak));
+                        textContainer.append($('<button type="button" onclick="location.reload()" class="button-90">Coba Lagi</button>'));
+
+                        $('#formContainer').html(textContainer);
                         var audio = document.getElementById('audioPlayer');
                         audio.play();
                     }
